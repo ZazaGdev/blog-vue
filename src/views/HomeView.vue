@@ -1,28 +1,38 @@
 <template>
-    <div class="home">
-        <p>{{ movieOne.name }} - {{ movieOne.rating }}</p>
-        <button @click="updateMovieOne">Movie one</button>
-        <p>{{ movieTwo.name }} - {{ movieTwo.rating }}</p>
-        <button @click="updateMovieTwo">Movie Two</button>
-    </div>
+    <input type="search" v-model="search" />
+    <p>searching for {{ search }}</p>
+    <div v-for="name in matching" :key="name">{{ name }}</div>
+    <button @click="stopWatching"></button>
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 export default {
     name: 'HomeView',
     setup() {
-        const movieOne = ref({ name: 'titanic', rating: 4 })
-        const movieTwo = reactive({ name: 'avatar', rating: 6 })
-        const updateMovieOne = () => {
-            movieOne.value.rating++
+        const search = ref('')
+        const names = ref(['Some other name', 'new one', 'name3', 'lol', 'name5', 'name6'])
+
+        const stopWatch = watch(search, () => {
+            console.log(search.value)
+        })
+
+        const stopEffect = watchEffect(() => {
+            console.log(search.value)
+        })
+
+        const matching = computed(() => {
+            return names.value.filter((name) => {
+                return name.includes(search.value)
+            })
+        })
+
+        const stopWatching = () => {
+            stopWatch()
+            stopEffect()
         }
 
-        const updateMovieTwo = () => {
-            movieTwo.rating++
-        }
-
-        return { movieOne, movieTwo, updateMovieTwo, updateMovieOne }
+        return { names, search, matching, stopWatching }
     },
 }
 </script>
