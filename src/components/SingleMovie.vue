@@ -1,7 +1,8 @@
 <template>
     <div class="movie">
-        <h3>{{ movie.title }}</h3>
-        <p>{{ snippet }}</p>
+        <h2>{{ movie.title }}</h2>
+        <h3>{{ snippet }}</h3>
+        <span style="padding-left: 10px;" v-for="tag in movie.tags" :key="tag"> #{{ tag }}</span>
     </div>
 </template>
 
@@ -12,7 +13,8 @@ export default {
     props: ['movie'],
     setup(props) {
         const snippet = computed(()=> {
-            return props.movie.intro.substring(0, 100) + '...'
+            console.log(props.movie)
+            return props.movie.body.substring(0, 100) + '...'
         })
         
         return { snippet }

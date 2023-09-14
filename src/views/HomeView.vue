@@ -1,35 +1,25 @@
 <template>
     <div class="home">
         <h1>Home</h1>
-        <MovieList :movies="movies"/>
+        <div v-if="error">{{ error }}</div>
+        <div v-else-if="!error && !movies.length">loading...</div>
+        <div v-else><MovieList :movies="movies"/></div>
     </div>
 </template>
 
 <script>
 import MovieList from '../components/MovieList.vue'
-import { ref, toRaw } from 'vue'
+import getMovies from '../composables/getMovies'
 
 export default {
     name: 'HomeView',
     components: { MovieList },
     setup() {
-        const movies = ref([])
-        const error = ref(null)
-
-        const loadMovies = async () => {
-            try {
-                let data = await fetch('http://localhost:3000/movies')
-                if(!data.ok) {
-                    throw Error('no data available')
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        loadMovies()
+        const {movies, error, loadMovies} = getMovies()
         
-        return {movies}
+        loadMovies()
+
+        return {movies, error}
     },
 }
 </script>
