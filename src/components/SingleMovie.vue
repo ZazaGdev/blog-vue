@@ -14,6 +14,7 @@ export default {
         const snippet = computed(()=> {
             return props.movie.intro.substring(0, 100) + '...'
         })
+        
         return { snippet }
     }
 }
