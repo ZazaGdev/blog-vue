@@ -1,11 +1,15 @@
 import { ref } from 'vue'
 
-const getPosts = () => {
+const getMovies = () => {
     const movies = ref([])
     const error = ref(null)
 
     const loadMovies = async () => {
         try {
+            await new Promise(resolve => {
+                setTimeout(resolve, 1000);
+            })
+
             let data = await fetch('http://localhost:3000/movies')
             if(!data.ok) {
                 throw Error('no data available')
@@ -21,4 +25,4 @@ const getPosts = () => {
     return {movies, error, loadMovies}
 }
 
-export default getPosts
+export default getMovies

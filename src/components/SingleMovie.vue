@@ -1,6 +1,9 @@
 <template>
     <div class="movie">
-        <h2>{{ movie.title }}</h2>
+        <router-link :to="{ name:'Details', params: {id: movie.id}}">
+            <h2>{{ movie.title }}</h2>
+        </router-link>
+
         <h3>{{ snippet }}</h3>
         <span style="padding-left: 10px;" v-for="tag in movie.tags" :key="tag"> #{{ tag }}</span>
     </div>
