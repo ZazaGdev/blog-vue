@@ -7,6 +7,7 @@
     </div>
     <div v-else>
         <MovieList :movies="taggedMovies"/>
+        <TagCloud :movies="movies"/>
     </div>
 </template>
 
@@ -15,12 +16,13 @@ import getMovies from '../composables/getMovies'
 
 import Spinner from '../components/Spinner'
 import MovieList from '../components/MovieList'
+import TagCloud from '../components/TagCloud'
 
 import { useRoute } from "vue-router"
 import { computed } from "vue";
 
 export default {
-    components: {MovieList, Spinner},
+    components: {MovieList, Spinner, TagCloud},
     setup() {
         const route = useRoute()
 
@@ -46,5 +48,7 @@ export default {
 </script>
 
 <style>
-
+    .router-link-active {
+        color: orange;
+    }
 </style>

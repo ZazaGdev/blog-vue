@@ -7,6 +7,7 @@
         </div>
         <div v-else>
             <MovieList :movies="movies"/>
+            <TagCloud :movies="movies"/>
         </div>
     </div>
 </template>
@@ -15,11 +16,13 @@
 import getMovies from '../composables/getMovies'
 
 import MovieList from '../components/MovieList'
+import TagCloud from '../components/TagCloud'
 import Spinner from '../components/Spinner'
+
 
 export default {
     name: 'HomeView',
-    components: { MovieList, Spinner },
+    components: { MovieList, Spinner, TagCloud },
     setup() {
         const {movies, error, loadMovies} = getMovies()
         
