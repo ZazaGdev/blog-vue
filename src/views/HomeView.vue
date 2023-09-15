@@ -13,6 +13,7 @@
 
 <script>
 import getMovies from '../composables/getMovies'
+
 import MovieList from '../components/MovieList'
 import Spinner from '../components/Spinner'
 

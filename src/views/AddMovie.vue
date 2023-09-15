@@ -19,6 +19,8 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
 export default {
     setup() {
         const title = ref('')
@@ -27,6 +29,8 @@ export default {
         const tags = ref([])
         const error = ref(null)
 
+        const router = useRouter()
+        
         const handleAddingTag = () => {
             if(!tags.value.includes(tag.value.trim())) {
                 tags.value.push(tag.value.trim())
@@ -52,6 +56,8 @@ export default {
                 if(!request.ok) {
                     throw Error('Bad request')
                 }
+
+                router.push({name: 'Home'})
             } catch (err) {
                 error.value = err.message
                 console.log(error.value);

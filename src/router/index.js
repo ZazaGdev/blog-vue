@@ -2,11 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Details from '../views/Details.vue'
 import AddMovie from '../views/AddMovie.vue'
+import Tags from '../views/Tags.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   }, 
   {
@@ -19,6 +20,12 @@ const routes = [
     path: '/add',
     name: 'AddMovie',
     component: AddMovie,
+  },
+  {
+    path: '/tags/:tag',
+    name: 'Tags',
+    component: Tags,
+    props:true
   }
 ]
 

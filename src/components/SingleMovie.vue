@@ -5,7 +5,11 @@
         </router-link>
 
         <h3>{{ snippet }}</h3>
-        <span style="padding-left: 10px;" v-for="tag in movie.tags" :key="tag"> #{{ tag }}</span>
+        <span style="padding-left: 10px;" v-for="tag in movie.tags" :key="tag"> 
+            <router-link :to="{name: 'Tags', params: {tag: tag}}">
+                #{{ tag }}
+            </router-link>
+        </span>
     </div>
 </template>
 
@@ -16,7 +20,6 @@ export default {
     props: ['movie'],
     setup(props) {
         const snippet = computed(()=> {
-            console.log(props.movie)
             return props.movie.body.substring(0, 100) + '...'
         })
         
