@@ -20,6 +20,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { projectFireStore } from '../firebase/config'
 
 export default {
     setup() {
@@ -47,15 +48,7 @@ export default {
             }
 
             try {
-                let request = await fetch('http://localhost:3000/movies', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(movie),
-                })
-
-                if(!request.ok) {
-                    throw Error('Bad request')
-                }
+                const res = await projectFireStore.collection('movies').add(movie)
 
                 router.push({name: 'Home'})
             } catch (err) {

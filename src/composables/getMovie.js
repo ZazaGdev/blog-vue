@@ -1,4 +1,5 @@
 import {ref} from 'vue'
+import { projectFireStore } from '../firebase/config'
 
 const getMovie = (id) => {
     const movie = ref(null)
@@ -6,16 +7,13 @@ const getMovie = (id) => {
 
     const loadMovie = async () => {
         try {
-            await new Promise(resolve => {
-                setTimeout(resolve, 1000);
-            })
+            const res = await projectFireStore.collection('movies').doc(id).get()
 
-            let data = await fetch('http://localhost:3000/movies/' + id)
-            if(!data.ok) {
-                throw Error('movie does not exist')
+            if(!res.exists) {
+                throw Error('Movie does not exist') 
             }
 
-            movie.value = await data.json()
+            movie.value = { ...res.data(), id: res.id}
         } catch (err) {
             error.value = err.message
             console.log(error.value)
