@@ -7,7 +7,9 @@ const getMovies = () => {
 
     const loadMovies = async () => {
         try {
-            const res = await projectFireStore.collection('movies').get()
+            const res = await projectFireStore.collection('movies')
+                .orderBy('createdAt', 'desc')
+                .get()
 
             movies.value = res.docs.map((doc) => {
                 return {...doc.data(), id: doc.id }

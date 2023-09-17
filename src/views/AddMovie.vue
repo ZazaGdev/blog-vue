@@ -20,7 +20,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { projectFireStore } from '../firebase/config'
+import { projectFireStore, timestamp } from '../firebase/config'
 
 export default {
     setup() {
@@ -45,6 +45,7 @@ export default {
                 title: title.value,
                 body: body.value,
                 tags: tags.value,
+                createdAt: timestamp()
             }
 
             try {
